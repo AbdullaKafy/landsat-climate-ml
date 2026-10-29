@@ -1,0 +1,56 @@
+{
+  "slug": "2024-jem-saudi-urban-analytics",
+  "doi": "10.1016/j.jenvman.2024.120705",
+  "year": 2024,
+  "journal": "Journal of Environmental Management",
+  "volume": 357,
+  "article_number": "120705",
+  "title": "Harnessing urban analytics and machine learning for sustainable urban development: A multidimensional framework for modeling environmental impacts of urbanization in Saudi Arabia",
+  "authors": ["Abdulaziz I. Almulhim", "Abdulla Al Kafy", "Md Nahid Ferdous", "Md. Abdul Fattah", "Syed Riad Morshed"],
+  "kafy_position": 2,
+  "study_area": "Kingdom of Saudi Arabia (national), 2,149,690 km2",
+  "country": "Saudi Arabia",
+  "years": [1987, 1992, 1997, 2002, 2007, 2012, 2017, 2018, 2022],
+  "sensors": ["Landsat 5 SR", "Landsat 8 SR", "GLDAS-2", "NASA GEOS-CF", "DMSP-OLS Nighttime Lights Time Series V4"],
+  "themes": ["urban expansion", "vegetation", "water bodies", "imperviousness", "soil moisture", "thermal comfort", "air pollution", "light pollution"],
+  "methods": ["Google Earth Engine", "object-based deep learning classification (SAE/SDAE)", "ROC AUC", "expanding speed index", "expanding intensity index", "gravity center", "EVI", "NDBI", "MNDWI", "NDISI", "UTFVI", "regression", "correlation", "PCA"],
+  "key_result": "Built-up land grew from 0.067% to 0.14% of Saudi Arabia (1987-2022), mean soil moisture fell from 15.76% to 14.02%, mean PM2.5 rose from 44.25 to 73.36 ug/m3, and PCA gave the highest PC1 loadings to PM2.5 (0.94), UTFVI (0.92) and NO2 (0.88).",
+  "method_details": {
+    "platform": "Google Earth Engine for all datasets; regression in ArcGIS Pro",
+    "landsat": "Cloud-free summer Landsat 5 and Landsat 8 Surface Reflectance, VNIR/SWIR 30 m, TIR resampled to 30 m by cubic convolution; Landsat 8 TIR as surface temperature product",
+    "landsat_years": [1987, 1992, 1997, 2002, 2007, 2012, 2017, 2022],
+    "classification": "Object-based image classification: graph-based minimal spanning tree segmentation, spectral/spatial/texture features, stacked autoencoder (SAE) or stacked denoising autoencoder (SDAE); classes urban, water bodies, vegetation, bare land; ROC AUC accuracy above 90%",
+    "expanding_speed_index": "Mue = dU_ij / dt_j",
+    "expanding_intensity_index": "Iue = dU_ij / ULA_ij",
+    "gravity_center": "Xt = sum(Xi * Cti) / sum(Cti); Yt = sum(Yi * Cti) / sum(Cti)",
+    "gravity_shift_distance": "L(t+1) = sqrt((X(t+1) - Xt)^2 + (Y(t+1) - Yt)^2)",
+    "gravity_shift_angle": "alpha(t+1) = arctan((Y(t+1) - Yt) / (X(t+1) - Xt)), angle from east",
+    "evi": "2.5 * ((NIR - Red) / (NIR + 6 * Red - 7.5 * Blue + 1))",
+    "ndbi": "(SWIR - NIR) / (SWIR + NIR); five manual classes (no, very less, moderate, dense, very dense built-up), breaks not reported",
+    "mndwi": "(Green - SWIR) / (Green + SWIR)",
+    "ndisi": "(SWIR2 - NIR) / (SWIR2 + NIR) as printed (Eq. 10)",
+    "utfvi": "(LSTmax - LSTmin) / (LSTmax + LSTmin) as printed (Eq. 11); not the per-pixel (Ts - Tmean)/Ts form; no UTFVI class breaks reported",
+    "soil_moisture": "NASA GLDAS-2 soil moisture, 2002-2022 (units reported as %)",
+    "air_quality": {
+      "source": "NASA GMAO GEOS-CF (Goddard Earth Observing System Composition Forecast), 1-hour dataset; not Sentinel-5P",
+      "pollutants": ["PM2.5", "CH4", "CO", "SO2", "NO2"],
+      "units_reported": {"PM2.5": "ug/m3", "CH4": "ppb", "CO": "mol/m3", "SO2": "mol/m3", "NO2": "mol/m3"},
+      "years": "text: 2018 and 2022; figure captions: 2019 to 2022"
+    },
+    "night_light": {
+      "source": "DMSP-OLS Nighttime Lights Time Series Version 4 (NOAA); Fig. 14 credits Earth Observation Group, Payne Institute for Public Policy",
+      "resolution": "30 arc-second (about 1 km), EPSG:4326",
+      "years": [1992, 1997, 2002, 2007, 2012, 2017, 2022]
+    },
+    "regression": "EP = b0 + b1 * UE + e for EVI, NDBI, MNDWI, NDISI, soil moisture, LST, UTFVI, PM2.5, CH4, SO2, NO2, CO, NTL; normality and linearity checked first; UE is the independent variable",
+    "pca": {
+      "input": "matrix of observations x EPs, mean-centered by column",
+      "decomposition": "eigenvectors and eigenvalues of the covariance matrix",
+      "loadings": "eigenvector * sqrt(eigenvalue)",
+      "variables_in_text": ["EVI", "NDISI", "soil moisture", "NDBI", "MNDWI", "LST", "UTFVI", "PM2.5", "CH4", "NO2", "CO", "NLP"],
+      "variables_in_table4": ["EVI", "NDISI", "soil moisture", "NDBI", "MNDWI", "UTFVI", "PM2.5", "CH4", "CO", "NO2"],
+      "components_reported": 2,
+      "variance_explained": "not reported"
+    }
+  }
+}

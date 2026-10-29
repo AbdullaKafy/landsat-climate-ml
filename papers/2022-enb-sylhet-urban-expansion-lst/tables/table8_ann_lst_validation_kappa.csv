@@ -1,0 +1,5 @@
+year,season,pct_correctness,kappa_histo,kappa_loc,kappa_overall
+2015,Summer,98.6172,0.9094,0.9475,0.97708
+2015,Winter,99.0822,0.9235,0.9785,0.9532
+2020,Summer,92.5326,0.9369,0.9988,0.9684
+2020,Winter,95.9854,0.9281,0.9654,0.9823

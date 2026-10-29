@@ -1,0 +1,5 @@
+year,season,none_lt0_km2,very_low_0_075_km2,low_075_15_km2,moderate_15_225_km2,high_225_3_km2,very_high_gt3_km2
+2025,Summer,,,8.782,12.560,3.302,1.926
+2025,Winter,,0.703,15.489,10.378,,
+2030,Summer,,,8.396,9.090,7.069,2.015
+2030,Winter,,,11.620,14.700,0.250,

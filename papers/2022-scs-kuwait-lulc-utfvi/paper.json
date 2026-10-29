@@ -1,0 +1,56 @@
+{
+  "slug": "2022-scs-kuwait-lulc-utfvi",
+  "doi": "10.1016/j.scs.2022.104107",
+  "year": 2022,
+  "journal": "Sustainable Cities and Society",
+  "volume": 86,
+  "article_number": "104107",
+  "title": "Modelling the impacts of land use/land cover changing pattern on urban thermal characteristics in Kuwait",
+  "authors": ["Ahmad E AlDousari", "Abdulla-Al Kafy", "Milan Saha", "Md. Abdul Fattah", "Abdulaziz I. Almulhim", "Abdullah-Al- Faisal", "Abdullah Al Rakib", "Dewan Md. Amir Jahir", "Zullyadini A. Rahaman", "Arpita Bakshi", "Mahir Shahrier", "Md. Mijanur Rahman"],
+  "kafy_position": 2,
+  "kafy_role_note": "Joint first author (first three authors contributed equally)",
+  "study_area": "Kuwait",
+  "country": "Kuwait",
+  "years": [1991, 2001, 2011, 2021, 2031],
+  "sensors": ["Landsat 5 TM", "Landsat 8 OLI/TIRS"],
+  "themes": ["land use/land cover change", "land surface temperature", "urban heat island", "UTFVI", "prediction"],
+  "methods": ["SVM classification", "accuracy assessment", "NDVI", "NDBI", "single-channel LST with NDVI emissivity", "normalized UHI", "UTFVI", "CA-ANN (QGIS MOLUSCE)", "kappa validation (QGIS, TerrSet)", "RMSE and R2 validation"],
+  "key_result": "Built-up area grew by 5024.48 km2 (329.60%) from 1991 to 2021, the LST range rose from 25.55-43.34 C to 29.15-48.89 C, the strongest UTFVI zone grew by 1433.82 km2 (108.43%), and CA-ANN projects built-up land on 52.03% of the area by 2031.",
+  "method_details": {
+    "scene_month": "July (summer)",
+    "cloud_cover_max_pct": 10,
+    "atmospheric_correction": "FLAASH (ENVI 5.3)",
+    "lulc_classes": ["Bare Land", "Built-Up area", "Vegetation", "Water Body"],
+    "classifier": "SVM (ENVI 5.3)",
+    "training_samples_per_class": "about 50",
+    "validation_points_per_year": 200,
+    "validation_points_per_class": 50,
+    "thermal_constants": {
+      "landsat5_tm": {"K1": 607.76, "K2": 1260.56, "wavelength_um": 11.5},
+      "landsat8_tirs": {"K1": 774.8853, "K2": 1321.0789, "wavelength_um_b10": 10.9, "wavelength_um_b11": 12}
+    },
+    "rho_mK": 0.01438,
+    "lst_equation": "LST = Ti / (1 + (lambda * Ti / rho) * ln(emissivity))",
+    "emissivity_from_ndvi": [
+      {"ndvi": "< -0.185", "emissivity": 0.995},
+      {"ndvi": "-0.185 <= NDVI < 0.157", "emissivity": 0.970},
+      {"ndvi": "0.157 <= NDVI <= 0.727", "emissivity": "1.0094 + 0.047 ln(NDVI)"},
+      {"ndvi": "> 0.727", "emissivity": 0.990}
+    ],
+    "uhi_formula": "(Ts - Tm) / SD, Tm = mean LST, SD = standard deviation of LST",
+    "utfvi_formula": "(Ts - Tm) / Ts",
+    "utfvi_classes": ["None", "Weak", "Middle", "Strong", "Stronger", "Strongest"],
+    "utfvi_class_breaks": "not stated in the paper",
+    "ndbi_formula": "(MIR - NIR) / (MIR + NIR)",
+    "ca_ann": {
+      "software": "QGIS MOLUSCE plugin",
+      "lulc_calibration": "2001 and 2011 maps used to simulate 2021, then 2031 projected",
+      "lst_ann_inputs": ["LULC 2001/2011/2021", "NDVI 2001/2011/2021", "NDBI 2001/2011/2021", "LST 2001/2011/2021", "latitude", "longitude"],
+      "extra_inputs_text": "road layer, NDBI and NDVI",
+      "ann_hidden": "Tables 8 and 9 list 'No hidden layer' = 6; Fig. 3 shows one hidden layer with 6 nodes",
+      "neighborhood": "not stated",
+      "iterations": "not stated"
+    },
+    "validation_2021": {"qgis_kappa": 0.89, "qgis_pct_correct": 92.02, "Kno": 0.91, "Klocation": 0.90, "Kstandard": 0.92, "Klocation_strata": 0.88, "lst_rmse": 0.546, "lst_r2": 0.88, "utfvi_rmse": 0.589, "utfvi_r2": 0.90}
+  }
+}

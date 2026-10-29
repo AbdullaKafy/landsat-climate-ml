@@ -1,0 +1,10 @@
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+.env
+*.key
+*.pem
+credentials*.json
+.pytest_cache/
+.ruff_cache/

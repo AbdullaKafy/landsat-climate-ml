@@ -1,0 +1,5 @@
+lulc_class,actual_map_o_pct,predicted_map_e_pct,o_minus_e,o_minus_e_sq,o_minus_e_sq_over_e
+Water Body,3.98,3.71,0.27,0.073,0.020
+Built-up Area,52.66,52.04,0.62,0.384,0.007
+Vegetation,40.27,41.03,-0.76,0.578,0.014
+Bare Land,3.08,3.24,-0.16,0.026,0.008

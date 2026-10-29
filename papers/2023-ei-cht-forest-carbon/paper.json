@@ -1,0 +1,48 @@
+{
+  "slug": "2023-ei-cht-forest-carbon",
+  "doi": "10.1016/j.ecolind.2023.110374",
+  "year": 2023,
+  "journal": "Ecological Indicators",
+  "volume": 152,
+  "article_number": "110374",
+  "license": "CC BY 4.0",
+  "title": "Integrating forest cover change and carbon storage dynamics: Leveraging Google Earth Engine and InVEST model to inform conservation in hilly regions",
+  "authors": ["Abdulla-Al Kafy", "Milan Saha", "Md. Abdul Fattah", "Muhammad Tauhidur Rahman", "Bushra Monowar Duti", "Zullyadini A. Rahaman", "Arpita Bakshi", "S. Kalaivani", "Sk Nafiz Rahaman", "Golam Shabbir Sattar"],
+  "kafy_position": 1,
+  "study_area": "Chittagong Hill Tracts region (Chittagong, Cox's Bazar, Bandarban, Rangamati, Khagrachari districts)",
+  "country": "Bangladesh",
+  "years": [1996, 2001, 2006, 2011, 2016, 2021],
+  "sensors": ["Landsat 5 TM", "Landsat 8 OLI/TIRS"],
+  "themes": ["forest cover change", "carbon storage", "carbon sequestration", "ecosystem services"],
+  "methods": ["maximum likelihood classification in Google Earth Engine", "confusion matrix and kappa", "Land Change Modeler", "InVEST carbon storage and sequestration model", "NDVI and EVI", "multiple linear regression"],
+  "key_result": "From 1996 to 2021 vegetation fell by 2862.86 km2 (21%) and carbon storage fell from 495.93 x 10^6 Mg to 479.63 x 10^6 Mg, with Chittagong losing the most (7.99 x 10^6 Mg).",
+  "method_details": {
+    "lulc_classes": ["Water Body", "Vegetation Land", "Built-up Area", "Crop Land", "Bare Land"],
+    "classifier": "maximum likelihood supervised classification in Google Earth Engine",
+    "accuracy": "more than 500 random points per year from Google Earth; kappa 90.18, 91.85, 92.63, 93.66, 93.57, 93.32 (1996 to 2021)",
+    "carbon_model": "InVEST carbon storage and sequestration",
+    "carbon_formula": "C = sum over classes m of A_m * (C_m,a + C_m,b + C_m,s + C_m,d)",
+    "sequestration_formula": "S = C(T2) - C(T1), T2 > T1, pixel by pixel",
+    "carbon_pools_unit_as_printed": "Mg/km2",
+    "carbon_pools_mg_per_km2": {
+      "Water body":      {"above": 0,    "below": 0,    "soil": 11900, "dead": 123, "reference": "Ma et al., 2019"},
+      "Vegetation land": {"above": 410,  "below": 5640, "soil": 22600, "dead": 22,  "reference": "Li et al., 2004"},
+      "Built-up land":   {"above": 210,  "below": 4510, "soil": 11530, "dead": 27,  "reference": "Adelisardou et al., 2021"},
+      "Crop land":       {"above": 4650, "below": 8070, "soil": 10840, "dead": 100, "reference": "Razzaque, 2021"},
+      "Bare land":       {"above": 2260, "below": 9030, "soil": 14660, "dead": 294, "reference": "Liang et al., 2021"}
+    },
+    "carbon_pools_mg_per_ha_derived": {
+      "note": "derived by dividing the printed Mg/km2 values by 100; not printed in the paper",
+      "Water body":      {"above": 0.0,  "below": 0.0,  "soil": 119.0, "dead": 1.23},
+      "Vegetation land": {"above": 4.1,  "below": 56.4, "soil": 226.0, "dead": 0.22},
+      "Built-up land":   {"above": 2.1,  "below": 45.1, "soil": 115.3, "dead": 0.27},
+      "Crop land":       {"above": 46.5, "below": 80.7, "soil": 108.4, "dead": 1.0},
+      "Bare land":       {"above": 22.6, "below": 90.3, "soil": 146.6, "dead": 2.94}
+    },
+    "emission_calculation": "Carbon loss = difference in total InVEST carbon storage between years (S = C(T2) - C(T1)); summed per district for gain-loss",
+    "reported_density_range_mg_per_km2": "9.39 to 22.40 (Fig. 7), as printed",
+    "regression": "multiple linear regression of carbon storage on precipitation (BMD), NDVI, EVI and elevation (DEM); results in supplementary Table S3",
+    "uhi_formula": "not used",
+    "lst": "not used"
+  }
+}

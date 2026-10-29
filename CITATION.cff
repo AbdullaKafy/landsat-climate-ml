@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "landsat-climate-ml: land cover change, surface heat, carbon and drought from Landsat"
+message: "If you use this code, please cite it as below, and cite the paper whose method you use (see the papers/ folder)."
+type: software
+authors:
+  - given-names: Abdulla
+    family-names: Al Kafy
+    email: abdullaalkafy@utexas.edu
+    affiliation: "Department of Geography and the Environment, The University of Texas at Austin"
+    orcid: "https://orcid.org/0000-0002-7544-5165"
+repository-code: "https://github.com/AbdullaKafy/landsat-climate-ml"
+license: MIT
+version: 0.2.0
+date-released: "2026-10-29"
+abstract: >-
+  Open Python toolkit for Landsat land cover classification, land surface temperature,
+  urban heat island, UTFVI, CA-ANN land change simulation, carbon stock and index-based
+  drought, with a gallery that links eleven published studies to the code.
+keywords:
+  - remote sensing
+  - Landsat
+  - urban heat island
+  - land surface temperature
+  - land use land cover change
+  - cellular automata
+  - carbon stock
+  - drought

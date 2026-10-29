@@ -1,0 +1,7 @@
+software,parameter,value
+IDRISI Selva Land Change,K-location,0.89
+IDRISI Selva Land Change,K-no,0.91
+IDRISI Selva Land Change,K-location Strata,0.87
+IDRISI Selva Land Change,K-standard,0.86
+QGIS MOLUSCE,pct_correctness,89.41
+QGIS MOLUSCE,overall_kappa,0.86

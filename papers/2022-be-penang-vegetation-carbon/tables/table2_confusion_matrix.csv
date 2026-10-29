@@ -1,0 +1,37 @@
+year,lulc_class,water_body,built_up_area,agriculture,forest,total,user_accuracy_pct
+1996,Water Body,58,2,1,1,62,93.55
+1996,Built-Up Area,2,55,0,0,57,96.49
+1996,Agriculture,3,1,64,1,69,92.31
+1996,Forest,2,0,1,53,56,94.64
+1996,Total,65,58,66,55,244,
+1996,Producer Accuracy (%),89.23,94.83,96.97,96.36,,
+2001,Water Body,63,1,1,1,66,95.45
+2001,Built-Up Area,2,49,0,1,52,94.23
+2001,Agriculture,0,2,58,2,62,93.55
+2001,Forest,1,0,1,53,55,96.36
+2001,Total,66,52,60,57,235,
+2001,Producer Accuracy (%),95.45,94.23,94.94,92.98,,
+2006,Water Body,60,2,1,2,65,92.31
+2006,Built-Up Area,2,48,0,0,50,96.0
+2006,Agriculture,2,1,64,0,67,95.52
+2006,Forest,1,1,2,54,58,93.1
+2006,Total,65,52,67,56,240,
+2006,Producer Accuracy (%),92.31,92.31,95.52,96.43,,
+2011,Water Body,56,1,1,0,58,96.55
+2011,Built-Up Area,1,62,1,1,65,95.38
+2011,Agriculture,2,1,59,1,63,93.65
+2011,Forest,0,0,1,60,61,98.36
+2011,Total,59,64,62,62,247,
+2011,Producer Accuracy (%),94.92,96.88,95.16,96.77,,
+2016,Water Body,62,2,1,1,66,93.94
+2016,Built-Up Area,1,52,2,1,56,92.86
+2016,Agriculture,2,2,49,2,55,89.09
+2016,Forest,1,0,1,53,55,96.36
+2016,Total,66,56,53,57,232,
+2016,Producer Accuracy (%),93.94,92.86,92.45,92.98,,
+2021,Water Body,58,2,1,1,62,93.55
+2021,Built-Up Area,1,69,2,1,73,94.52
+2021,Agriculture,2,1,54,2,59,91.53
+2021,Forest,1,2,1,62,66,93.94
+2021,Total,62,74,58,66,260,
+2021,Producer Accuracy (%),93.55,93.24,93.1,93.94,,

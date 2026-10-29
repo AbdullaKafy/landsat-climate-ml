@@ -1,0 +1,6 @@
+metric,water_body,built_up_area,agricultural_land,forest_area
+area_change_to_km2,2.01,588.51,14.02,8.39
+area_converted_from_km2,46.03,0,194.55,97.04
+transformation_rate_pct,1.58% (0.53%/yr),0,8.41% (2.80%/yr),5.57% (1.86%/yr)
+increasing_rate_pct,0,15.56% (5.19%/yr),0,0
+decreasing_rate_pct,1.58% (0.45%/yr),0,8.41% (2.80%/yr),5.57% (1.86%/yr)

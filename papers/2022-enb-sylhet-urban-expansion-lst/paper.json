@@ -1,0 +1,111 @@
+{
+  "slug": "2022-enb-sylhet-urban-expansion-lst",
+  "doi": "10.1016/j.enbuild.2022.112452",
+  "year": 2022,
+  "journal": "Energy & Buildings",
+  "volume": 275,
+  "article_number": "112452",
+  "title": "Modelling microscale impacts assessment of urban expansion on seasonal surface urban heat island intensity using neural network algorithms",
+  "authors": [
+    "Milan Saha",
+    "Abdulla - Al Kafy",
+    "Arpita Bakshi",
+    "Abdullah-Al- Faisal",
+    "Abdulaziz I. Almulhim",
+    "Zullyadini A. Rahaman",
+    "Abdullah Al Rakib",
+    "Md. Abdul Fattah",
+    "Kaniz Shaleha Akter",
+    "Muhammad Tauhidur Rahman",
+    "Maomao Zhang",
+    "R. Rathi"
+  ],
+  "kafy_position": 2,
+  "kafy_note": "joint first author with Milan Saha",
+  "study_area": "Sylhet City Corporation (SCC)",
+  "country": "Bangladesh",
+  "years": [1995, 2000, 2005, 2010, 2015, 2020, 2025, 2030],
+  "sensors": ["Landsat 4-5 TM", "Landsat 8 OLI/TIRS"],
+  "themes": ["urban expansion", "seasonal land surface temperature", "surface urban heat island", "directional analysis", "spectral index correlation", "future scenario prediction"],
+  "methods": ["supervised classification", "confusion matrix accuracy assessment", "expansion speed and intensity indices", "center of gravity shift", "single-channel LST", "normalized LST and UHI ratio index", "directional ring and sector analysis", "Pearson correlation", "zonal statistics by land cover", "CA-ANN built-up prediction (MOLUSCE)", "kappa and ROC/AUC validation", "ANN regression on 500 m grid"],
+  "key_result": "Built-up land grew from 6.44 km2 (2000) to 13.99 km2 (2020), built-up area correlates with mean summer UHI at r = 0.982, and the summer area above 34 C is predicted to rise from 2.146 km2 (2020) to 11.227 km2 (2030).",
+  "method_details": {
+    "lulc_classes": ["Bare Land", "Built-Up Area", "Vegetation", "Water Body"],
+    "classifier": "supervised classification; algorithm not named",
+    "accuracy_points_per_year": 300,
+    "scene_filter": "cloud cover < 10 %, path/row 136/43",
+    "seasons": "summer March to June; winter December to February (scene selection)",
+    "expansion_indices": {
+      "speed": "Mue = dU_ij / (dt_j * ULA_ij) * 100 %",
+      "intensity": "Iue = dU_ij / (dt_j * TLA_ij) * 100 %",
+      "gravity_center": "Xt = sum(C_ti * X_i) / sum(C_ti), Yt = sum(C_ti * Y_i) / sum(C_ti)",
+      "shift_distance": "L = sqrt((x_t+1 - x_t)^2 + (y_t+1 - y_t)^2)",
+      "shift_angle": "angle from east, arctan of dy/dx by quadrant"
+    },
+    "lst": {
+      "radiance_landsat5": "L = Lmin + (Lmax - Lmin) / (Qcalmax - Qcalmin) * DN",
+      "radiance_landsat8": "L = ML * DN + AL",
+      "ML_as_printed": 0.0003342,
+      "AL_as_printed": 0.1,
+      "brightness_temperature": "TB = K2 / ln(K1 / L + 1)",
+      "landsat5_K1_as_printed": 607.7,
+      "landsat5_K2_as_printed": 1260.6,
+      "landsat8_K1_as_printed": 774.9,
+      "landsat8_K2_as_printed": 321.07,
+      "landsat8_K2_note": "usual Band 10 value is 1321.08",
+      "lst": "LST = TB / (1 + (lambda * TB / rho) * ln(e))",
+      "rho_mK": 0.01438,
+      "emissivity": "0.97 to 0.99",
+      "thermal_bands": "TM band 6; Landsat 8 bands 10 and 11",
+      "station_check": "Landsat LST vs BMD Sylhet station, R2 > 0.90 (summer)"
+    },
+    "lst_range_breaks_c": ["< 18", "18 - < 22", "22 - < 26", "26 - < 30", "30 - < 34", "> 34"],
+    "uhi": {
+      "normalization": "Tn = (LST - Tmin) / (Tmax - Tmin)",
+      "normalized_levels": ["low", "semi-medium", "medium", "semi-high", "high"],
+      "uri": "URI = 1 / (100 m) * sum_{i=1..n} (x_i * p_i); m = number of normalized temperature levels, x = weight, p = % area in level i",
+      "classes": {
+        "None": "< 0",
+        "Very Low": "0 - 0.75",
+        "Low": "0.75 - 1.5",
+        "Moderate": "1.5 - 2.25",
+        "High": "2.25 - 3",
+        "Very High": "> 3"
+      }
+    },
+    "directional_analysis": "rings around the city core at 200 m intervals (methods; 100 m in results text), divided into 16 equal directions",
+    "correlation": {
+      "method": "Pearson, 2-tailed",
+      "built_up_vs_mean_summer_lst": 0.910,
+      "built_up_vs_mean_summer_uhi": 0.982,
+      "mean_summer_lst_vs_uhi": 0.942,
+      "built_up_vs_mean_winter_lst": 0.964,
+      "built_up_vs_mean_winter_uhi": 0.911,
+      "mean_winter_lst_vs_uhi": 0.862,
+      "n": 6
+    },
+    "dem": "ASTER 30 m; elevation 11 m to 56 m",
+    "ca_ann": {
+      "software": "MOLUSCE plugin, QGIS 2.18",
+      "calibration": "1995 and 2000 maps used to simulate 2005 and 2010",
+      "drivers": ["DEM", "aspect", "slope", "Euclidean distance from roads", "Euclidean distance from rivers", "urban footprint concentration"],
+      "correlation_checks": ["Pearson", "joint information uncertainty", "Cramer's V"],
+      "model": "ANN (multi-layer perceptron)",
+      "kappa_formula": "K = (p0 - pe) / (1 - pe)",
+      "kappa_2015": {"pct_correctness": 96.8243, "kappa_histo": 0.9648, "kappa_loc": 0.9866, "kappa_overall": 0.9485},
+      "kappa_2020": {"pct_correctness": 95.3784, "kappa_histo": 0.9572, "kappa_loc": 0.9745, "kappa_overall": null},
+      "auc": {"2015": 0.898, "2020": 0.917},
+      "auc_interpretation": "0.5 no discrimination; 0.7-0.8 acceptable; 0.8-0.9 excellent; > 0.9 outstanding"
+    },
+    "ann_lst_uhi": {
+      "grid": "500 m x 500 m cells; cell mean and centroid coordinates as inputs",
+      "lst_inputs": ["LST(t)", "LST(t-5)", "LULC(t)", "LULC(t-5)", "NDBI(t)", "NDBI(t-5)", "NDBSI(t)", "NDBSI(t-5)", "latitude", "longitude"],
+      "uhi_inputs": ["LST(t)", "LST(t-5)", "UHI(t)", "UHI(t-5)", "LULC(t)", "LULC(t-5)", "NDBI(t)", "NDBI(t-5)", "NDBSI(t)", "NDBSI(t-5)", "latitude", "longitude"],
+      "type": "three-layer network (input i, hidden j, output k)",
+      "hidden_neurons": "1-3 times hidden neurons in each layer",
+      "activation": "logistic f(y) = 1 / (1 + e^-y)",
+      "initial_learning_rate": 0.1,
+      "decay_rate": 0.9
+    }
+  }
+}

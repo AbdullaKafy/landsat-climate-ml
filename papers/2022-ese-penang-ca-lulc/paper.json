@@ -1,0 +1,41 @@
+{
+  "slug": "2022-ese-penang-ca-lulc",
+  "doi": "10.1007/s41748-022-00318-w",
+  "year": 2022,
+  "journal": "Earth Systems and Environment",
+  "volume": 6,
+  "pages": "817-835",
+  "title": "Predicting Microscale Land Use/Land Cover Changes Using Cellular Automata Algorithm on the Northwest Coast of Peninsular Malaysia",
+  "authors": ["Zullyadini A. Rahaman", "Abdulla - Al Kafy", "Abdullah-Al- Faisal", "Abdullah Al Rakib", "Dewan Md. Amir Jahir", "Md. Abdul Fattah", "S. Kalaivani", "R. Rathi", "Saumik Mallik", "Muhammad Tauhidur Rahman"],
+  "kafy_position": 2,
+  "kafy_role_note": "Equal contribution with first author",
+  "study_area": "Penang (George Town Conurbation)",
+  "country": "Malaysia",
+  "years": [2005, 2010, 2015, 2020, 2025, 2035],
+  "sensors": ["Landsat 5 TM", "Landsat 8 OLI", "SRTM DEM"],
+  "themes": ["land use/land cover change", "urban expansion", "directional analysis", "prediction"],
+  "methods": ["SVM classification (RBF)", "accuracy assessment", "change and transition analysis", "gradient directional mapping", "Markov chain transition matrix", "CA (QGIS MOLUSCE)", "kappa validation (IDRISI/TerrSet, MOLUSCE)", "Pearson chi-square validation"],
+  "key_result": "From 2005 to 2020 built-up land grew from 468.24 to 1081.53 km2 (+15.56% of the study area, 5.19%/yr) while agricultural land fell by 8.41%, forest by 5.57% and water by 1.58%; the CA model validated with overall kappa 0.96 and chi-square 0.712.",
+  "method_details": {
+    "lulc_classes": ["Agricultural land", "Built-up area", "Forest", "Water body"],
+    "classifier": "SVM (ENVI 5.3)",
+    "svm_kernel": "RBF",
+    "svm_gamma": 0.07,
+    "svm_penalty": 120.0,
+    "svm_pyramid_level": 0,
+    "svm_probability_threshold": 0.05,
+    "validation_points_per_year": 300,
+    "net_change_basis": "percent of total study area (about 3941 km2)",
+    "directional_mapping": {"directions": 16, "rings": "concentric rings from study area center", "interval_text": "5-km interval"},
+    "ca": {
+      "software": "QGIS MOLUSCE plugin",
+      "transition": "Markov chain transition probability matrix (2005-2015 and 2010-2020 pairs per Fig. 2)",
+      "drivers": ["slope", "elevation (30 m SRTM DEM)", "Euclidean distance to road network", "Euclidean distance to water bodies"],
+      "neighborhood": "not stated",
+      "iterations": "not stated",
+      "ann_layers": "not stated",
+      "prediction_years": [2025, 2035]
+    },
+    "validation": {"year": 2021, "K_location": 0.96, "K_no": 0.95, "K_location_strata": 0.93, "K_standard": 0.97, "pct_correctness": 97.02, "overall_kappa": 0.96, "chi_square": 0.712, "chi_square_critical": 7.815, "df": 3, "alpha": 0.05}
+  }
+}

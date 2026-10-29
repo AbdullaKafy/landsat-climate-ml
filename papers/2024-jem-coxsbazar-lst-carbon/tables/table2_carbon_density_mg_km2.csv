@@ -1,0 +1,8 @@
+lulc,c_above_mg_km2,c_below_mg_km2,c_soil_mg_km2,c_dead_mg_km2,reference
+Bare Land,2260,9030,14660,294,Liang et al. (2021)
+Built-up Land,210,4510,11530,27,Adelisardou et al. (2022)
+Crop Land,4650,8070,10840,100,Adelisardou et al. (2022)
+Evergreen Forest,7070,22410,17980,555,Adelisardou et al. (2022)
+Grassland,3530,8650,9990,190,Liang et al. (2021)
+Vegetation,410,5640,22600,22,Liang et al. (2021)
+Water Body,0,0,11900,123,Ma et al. (2019)

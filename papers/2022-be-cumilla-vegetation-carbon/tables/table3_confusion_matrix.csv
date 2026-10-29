@@ -1,0 +1,37 @@
+year,classified_class,water_body,urban_area,vegetation_cover,bare_land,total,user_accuracy_pct
+1994,Water Body,63,0,0,0,63,100.0
+1994,Urban Area,0,99,0,2,101,98.02
+1994,Vegetation Cover,0,2,64,0,66,96.97
+1994,Bare Land,0,4,1,65,70,92.86
+1994,Total,63,105,65,67,300,
+1994,Producer Accuracy (%),100.0,94.29,98.46,97.01,,
+1999,Water Body,55,1,0,0,56,98.21
+1999,Urban Area,0,90,0,4,94,95.74
+1999,Vegetation Cover,0,1,80,0,81,98.77
+1999,Bare Land,0,3,0,66,69,95.65
+1999,Total,55,95,80,70,300,
+1999,Producer Accuracy (%),100.0,94.74,100,94.29,,
+2004,Water Body,53,0,0,0,53,100.0
+2004,Urban Area,0,96,1,3,100,96.0
+2004,Vegetation Cover,0,0,74,0,74,100.0
+2004,Bare Land,0,2,0,71,73,97.26
+2004,Total,53,98,75,74,300,
+2004,Producer Accuracy (%),100.0,97.96,98.67,95.95,,
+2009,Water Body,44,0,0,0,44,100.0
+2009,Urban Area,0,105,0,3,108,97.22
+2009,Vegetation Cover,0,1,75,0,76,98.68
+2009,Bare Land,0,4,0,68,72,94.44
+2009,Total,44,110,75,71,300,
+2009,Producer Accuracy (%),69.84,95.45,100.0,95.77,,
+2014,Water Body,50,0,0,0,50,100.0
+2014,Urban Area,0,110,0,5,115,95.65
+2014,Vegetation Cover,0,0,72,0,72,100.0
+2014,Bare Land,0,5,0,58,63,92.06
+2014,Total,50,115,72,63,300,
+2014,Producer Accuracy (%),100.0,95.65,100,92.06,,
+2019,Water Body,35,0,0,0,35,100.0
+2019,Urban Area,0,112,1,2,115,97.39
+2019,Vegetation Cover,0,0,82,0,82,100.0
+2019,Bare Land,0,3,0,65,68,95.59
+2019,Total,35,115,83,67,300,
+2019,Producer Accuracy (%),100.0,97.39,98.8,97.01,,

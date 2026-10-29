@@ -1,0 +1,38 @@
+{
+  "classification_overall_accuracy": 0.797,
+  "classification_kappa": 0.689,
+  "caann_validation": {
+    "CA-ANN (simulated 2019)": {
+      "agreement": 0.717,
+      "kappa": 0.572
+    },
+    "No change (2009 as 2019)": {
+      "agreement": 0.695,
+      "kappa": 0.535
+    }
+  },
+  "lst_model_cv": {
+    "summer": {
+      "r2": 0.695,
+      "rmse": 1.29
+    },
+    "winter": {
+      "r2": 0.296,
+      "rmse": 1.102
+    }
+  },
+  "builtup_percent": {
+    "1999": 10.8,
+    "2009": 16.7,
+    "2019": 21.7,
+    "2029": 25.6,
+    "2039": 28.4
+  },
+  "vegetation_percent": {
+    "1999": 38.9,
+    "2009": 38.0,
+    "2019": 41.5,
+    "2029": 42.5,
+    "2039": 42.5
+  }
+}

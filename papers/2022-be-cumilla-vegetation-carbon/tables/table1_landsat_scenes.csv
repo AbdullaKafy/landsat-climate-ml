@@ -1,0 +1,7 @@
+year,date_acquired,sensor,path,row,multispectral_resolution_m,thermal_band_resolution_m,thermal_resampled_to_m,cloud_cover
+1994,1994-04-08,TM,137,44,30,120,30,<10%
+1999,1999-04-22,TM,137,44,30,120,30,<10%
+2004,2004-04-03,TM,137,44,30,120,30,<10%
+2009,2009-04-10,TM,137,44,30,120,30,<10%
+2014,2014-04-15,OLI,137,44,30,100,30,<10%
+2019,2019-04-13,OLI,137,44,30,100,30,<10%

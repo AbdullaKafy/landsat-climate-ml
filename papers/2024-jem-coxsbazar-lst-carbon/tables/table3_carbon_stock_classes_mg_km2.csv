@@ -1,0 +1,7 @@
+cs_min_mg_km2,cs_max_mg_km2_exclusive,cs_class
+5900,22360,None
+22360,23660,Very Low
+23660,26244,Low
+26244,28672,Moderate
+28672,48015,High
+48015,,Very High

@@ -1,0 +1,74 @@
+{
+  "slug": "2022-be-sylhet-seasonal-utfvi",
+  "doi": "10.1016/j.buildenv.2022.109066",
+  "year": 2022,
+  "journal": "Building and Environment",
+  "volume": 217,
+  "article_number": "109066",
+  "title": "Predicting the impacts of land use/land cover changes on seasonal urban thermal characteristics using machine learning algorithms",
+  "authors": [
+    "Abdulla - Al Kafy",
+    "Milan Saha",
+    "Abdullah-Al- Faisal",
+    "Zullyadini A. Rahaman",
+    "Muhammad Tauhidur Rahman",
+    "Desheng Liu",
+    "Md. Abdul Fattah",
+    "Abdullah Al Rakib",
+    "Ahmad E. AlDousari",
+    "Sk Nafiz Rahaman",
+    "Md Zakaria Hasan",
+    "Md Ahasanul Karim Ahasan"
+  ],
+  "kafy_position": 1,
+  "kafy_note": "joint first author with Milan Saha",
+  "study_area": "Sylhet City Corporation (SCC)",
+  "country": "Bangladesh",
+  "years": [1995, 2000, 2005, 2010, 2015, 2020, 2025, 2030],
+  "sensors": ["Landsat 4-5 TM", "Landsat 8 OLI/TIRS"],
+  "themes": ["land use/land cover change", "UTFVI", "seasonal thermal comfort", "directional analysis", "future scenario prediction"],
+  "methods": ["SVM classification", "accuracy assessment (user, producer, overall, kappa)", "UTFVI", "UTFVI cross-tab by land cover", "directional ring and sector analysis", "CA-ANN land cover prediction (MOLUSCE)", "chi-square and kappa validation", "ANN regression on 500 m grid (MATLAB)", "RMSE and R validation"],
+  "key_result": "Built-up land rose from 14.52 % of Sylhet in 1995 to 52.66 % in 2020 and is predicted to reach 58.93 % in 2030, while summer strong, stronger and strongest UTFVI areas are predicted to grow by about 20.42, 26.762 and 3.53 km2 from 1995 to 2030.",
+  "method_details": {
+    "lulc_classes": ["Bare Land", "Built-up Area", "Vegetation", "Water Body"],
+    "classifier": "SVM (ENVI 5.3), RBF kernel, gamma 0.07, penalty parameter 120.00, pyramid level 0, classification probability threshold 0.05",
+    "scene_filter": "cloud cover < 10 %, path/row 136/43, 30 m",
+    "seasons": "summer March to June; winter December to February (scene selection)",
+    "lst": "not described in the paper",
+    "utfvi_formula": "UTFVI = (Ts - Tm) / Tm",
+    "utfvi_classes": {
+      "None": "< 0",
+      "Weak": "0 - 0.005",
+      "Middle": "0.005 - 0.010",
+      "Strong": "0.010 - 0.015",
+      "Stronger": "0.015 - 0.020",
+      "Strongest": "> 0.020"
+    },
+    "directional_analysis": "rings at 200 m buffer interval around the urban center, divided into 16 equal sectors; each sector reports the class with the highest share",
+    "ca_ann": {
+      "software": "MOLUSCE plugin, QGIS",
+      "input_maps": "2005, 2010, 2015, 2020 for the 2025 and 2030 runs; 2015 and 2020 validation runs used (1995 & 2005) and (2000 & 2010)",
+      "drivers": ["commercial space", "distance from roads/highways", "slope", "elevation", "educational institutions", "water bodies"],
+      "max_iterations": 500,
+      "neighborhood": "3 x 3 (9 cells)",
+      "chi_square_2020": {"value": 0.049, "dof": 3, "critical_0_05": 7.815},
+      "kappa_overall": {"2015": 0.9507, "2020": 0.94528}
+    },
+    "ann_utfvi": {
+      "software": "MATLAB",
+      "type": "multi-layer perceptron with back-propagation",
+      "grid": "500 m x 500 m cells",
+      "inputs": ["LULC", "NDBI", "NDBSI", "NDVI", "NDWI", "latitude", "longitude"],
+      "equations": "UTFVI(t+5) and UTFVI(t+10) = f[LULC, NDBI, NDBSI, NDVI at t and t-5 or t-10], t = 2020",
+      "hidden_layers": 6,
+      "validation_2020": {"summer": {"rmse": 0.56, "r": 0.88}, "winter": {"rmse": 0.624, "r": 0.87}},
+      "compared_models_table3": {
+        "ANN": {"equation": "y = 0.89*x + 0.42", "mse": 0.896, "r": 0.51},
+        "ResNet": {"equation": "y = 0.89*x + 0.02", "mse": 0.890, "r": 0.53},
+        "GoogLeNet": {"equation": "y = 0.87*x + 0.01", "mse": 0.862, "r": 0.61},
+        "VGGNet": {"equation": "y = 0.87*x + 0.18", "mse": 0.859, "r": 0.63},
+        "AlexNet": {"equation": "y = 0.85*x + 0.40", "mse": 0.850, "r": 0.69}
+      }
+    }
+  }
+}

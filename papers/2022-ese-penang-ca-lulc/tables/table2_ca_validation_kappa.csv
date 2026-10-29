@@ -1,0 +1,2 @@
+prediction_year,k_location,k_no,k_location_strata,k_standard,pct_correctness,overall_kappa
+2021,0.96,0.95,0.93,0.97,97.02,0.96

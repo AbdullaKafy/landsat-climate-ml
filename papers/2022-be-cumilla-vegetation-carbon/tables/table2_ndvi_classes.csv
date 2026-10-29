@@ -1,0 +1,7 @@
+ndvi_class,ndvi_values_as_printed,type
+Very Good,> 0.75,Dense vegetation (covered by large number of dense trees)
+Good,0.45 to 0.75,"Moderate vegetation (covered by a medium number of trees, agricultural lands)"
+Normal,0.25 to 0.45,"Sparse vegetation (covered by sparsely distributed trees, garden, orchard etc.)"
+Poor,0.15 to 0.25,"Shrub & Grassland (playgrounds, playlots, parks, rooftop vegetation etc.)"
+Very Poor,-0.12 to -0.15,Bare soil (open ground with no green cover)
+Poor,<= 0.1,"Water bodies (including canals, lakes, ponds, and rivers)"

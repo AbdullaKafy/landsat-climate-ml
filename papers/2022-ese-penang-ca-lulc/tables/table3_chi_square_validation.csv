@@ -1,0 +1,5 @@
+lulc,actual_O,simulated_E,o_minus_e,o_minus_e_sq,o_minus_e_sq_over_e
+Agricultural land,765.88,748.02,17.86,318.98,0.426
+Built-up area,312.52,321.06,-8.54,72.93,0.227
+Forest cover,52.86,53.42,-0.56,0.31,0.006
+Water bodies,41.68,40.22,1.46,2.13,0.053

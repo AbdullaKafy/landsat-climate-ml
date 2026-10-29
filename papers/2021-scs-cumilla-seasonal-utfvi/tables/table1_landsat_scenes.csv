@@ -1,0 +1,7 @@
+year,season,date_acquired,sensor,path_row,multispectral_resolution_m,thermal_band_resolution,cloud_cover
+1999,Summer,1999-03-21,TM,137/44,30,120 m (resampled to 30 m),<10 %
+1999,Winter,1999-11-09,TM,136/44,30,120 m (resampled to 30 m),<10 %
+2009,Summer,2009-04-10,TM,136/44,30,120 m (resampled to 30 m),<10 %
+2009,Winter,2009-10-26,TM,137/44,30,120 m (resampled to 30 m),<10 %
+2019,Summer,2019-03-28,OLI,137/44,30,100 m (resampled to 30 m),<10 %
+2019,Winter,2019-11-23,OLI,137/44,30,100 m (resampled to 30 m),<10 %

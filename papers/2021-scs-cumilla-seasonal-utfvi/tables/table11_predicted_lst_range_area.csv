@@ -1,0 +1,5 @@
+year,season,lst_lt21_area_km2,lst_lt21_area_pct,lst_21_lt25_area_km2,lst_21_lt25_area_pct,lst_25_lt29_area_km2,lst_25_lt29_area_pct,lst_29_lt33_area_km2,lst_29_lt33_area_pct,lst_ge33_area_km2,lst_ge33_area_pct
+2029,Summer,0,0,0,0,13.15,29.06,17.27,38.17,14.83,32.77
+2039,Summer,0,0,0,0,10.47,23.13,18.01,39.79,16.77,37.06
+2029,Winter,0,0,23.03,50.91,8.26,18.25,13.95,30.84,0,0
+2039,Winter,0,0,14.15,31.29,14.16,42.35,15.64,23.53,1.28,2.83

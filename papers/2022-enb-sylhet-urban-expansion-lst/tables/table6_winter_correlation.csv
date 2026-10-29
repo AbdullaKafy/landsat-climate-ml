@@ -1,0 +1,10 @@
+row_variable,column_variable,pearson_r,sig_2_tailed,n,significance_flag
+Built up area (km2),Built up area (km2),1,,6,
+Built up area (km2),Mean LST winter (C),0.964,0.002,6,**
+Built up area (km2),Mean UHI winter,0.911,0.005,6,*
+Mean LST winter (C),Built up area (km2),0.964,0.002,6,**
+Mean LST winter (C),Mean LST winter (C),1,,6,
+Mean LST winter (C),Mean UHI winter,0.862,0.027,6,*
+Mean UHI winter,Built up area (km2),0.911,0.011,6,*
+Mean UHI winter,Mean LST winter (C),0.862,0.027,6,*
+Mean UHI winter,Mean UHI winter,1,,6,

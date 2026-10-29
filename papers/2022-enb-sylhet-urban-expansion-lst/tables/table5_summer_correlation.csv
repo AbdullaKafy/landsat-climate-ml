@@ -1,0 +1,10 @@
+row_variable,column_variable,pearson_r,sig_2_tailed,n,significance_flag
+Built up area (km2),Built up area (km2),1,,6,
+Built up area (km2),Mean LST summer (C),0.910,0.012,6,*
+Built up area (km2),Mean UHI summer,0.982,0.003,6,**
+Mean LST summer (C),Built up area (km2),0.910,0.012,6,*
+Mean LST summer (C),Mean LST summer (C),1,,6,
+Mean LST summer (C),Mean UHI summer,0.942,0.005,6,**
+Mean UHI summer,Built up area (km2),0.982,0.002,6,**
+Mean UHI summer,Mean LST summer (C),0.942,0.005,6,**
+Mean UHI summer,Mean UHI summer,1,,6,

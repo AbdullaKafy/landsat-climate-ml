@@ -1,0 +1,25 @@
+year,classified_class,bare_land,built_up_area,vegetation,water_body,total,user_accuracy_pct,overall_accuracy_pct,kappa_coefficient
+1991,Bare Land,46,2,1,1,50,92.00,,
+1991,Built-Up area,2,48,0,0,50,96.00,,
+1991,Vegetation,3,1,45,1,50,92.31,,
+1991,Water Body,2,0,1,47,50,94.00,,
+1991,Total,53,51,47,49,200,,,
+1991,Producer Accuracy,86.79,94.12,95.74,95.92,,,93,90.67
+2001,Bare Land,47,1,1,1,50,94.00,,
+2001,Built-Up area,2,47,0,1,50,94.00,,
+2001,Vegetation,0,2,46,2,50,92.00,,
+2001,Water Body,1,0,1,48,50,96.00,,
+2001,Total,50,50,48,52,200,,,
+2001,Producer Accuracy,94.00,94.00,94.94,92.31,,,94,92
+2011,Bare Land,45,2,1,2,50,90.00,,
+2011,Built-Up area,2,48,0,0,50,96.00,,
+2011,Vegetation,2,1,47,0,50,94.00,,
+2011,Water Body,1,1,2,46,50,92.00,,
+2011,Total,50,52,50,48,200,,,
+2011,Producer Accuracy,90.00,92.31,94.00,95.83,,,93,90.67
+2021,Bare Land,48,1,1,0,50,96.00,,
+2021,Built-Up area,1,47,1,1,50,94.00,,
+2021,Vegetation,2,1,46,1,50,92.00,,
+2021,Water Body,0,0,1,49,50,98.00,,
+2021,Total,51,49,49,51,200,,,
+2021,Producer Accuracy,94.12,95.92,93.88,96.08,,,95,93.34

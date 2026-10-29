@@ -1,0 +1,6 @@
+lulc_class,c_above_mg_per_km2,c_below_mg_per_km2,c_soil_mg_per_km2,c_dead_mg_per_km2,reference
+Water body,0,0,11900,123,"Ma et al., 2019"
+Vegetation land,410,5640,22600,22,"Li et al., 2004"
+Built-up land,210,4510,11530,27,"Adelisardou et al., 2021"
+Crop land,4650,8070,10840,100,"Razzaque, 2021"
+Bare land,2260,9030,14660,294,"Liang et al., 2021"

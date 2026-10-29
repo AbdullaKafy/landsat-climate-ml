@@ -1,0 +1,6 @@
+algorithm,correlation_equation,mse,r
+ANN,y = 0.89*x + 0.42,0.896,0.51
+ResNet,y = 0.89*x + 0.02,0.890,0.53
+GoogLeNet,y = 0.87*x + 0.01,0.862,0.61
+VGGNet,y = 0.87*x + 0.18,0.859,0.63
+AlexNet,y = 0.85*x + 0.40,0.850,0.69

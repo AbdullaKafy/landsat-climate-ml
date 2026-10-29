@@ -1,0 +1,11 @@
+season,year,source,None,Weak,Middle,Strong,Stronger,Strongest,area above 33 °C (%)
+summer,1999,observed,51.5,21.6,17.7,7.5,1.5,0.2,8.1
+summer,2009,observed,51.0,26.9,15.7,4.6,1.4,0.5,65.9
+summer,2019,observed,54.0,20.4,15.4,7.1,1.6,1.4,64.5
+summer,2029,projected,59.6,14.2,13.1,7.4,3.2,2.5,63.7
+summer,2039,projected,60.7,12.2,11.8,7.1,4.3,3.9,66.2
+winter,1999,observed,54.6,38.1,6.8,0.5,0.0,0.0,0.0
+winter,2009,observed,54.5,34.1,9.3,1.8,0.2,0.1,0.2
+winter,2019,observed,55.6,33.4,8.5,1.6,0.5,0.4,0.5
+winter,2029,projected,61.7,28.1,7.4,2.1,0.7,0.0,0.2
+winter,2039,projected,62.9,24.6,7.9,3.1,1.5,0.0,0.3
