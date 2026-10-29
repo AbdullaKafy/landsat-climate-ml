@@ -6,6 +6,16 @@
 
 The study covers Cox's Bazar, a coastal area in southeast Bangladesh, from 1996 to 2021, with projections to 2031 and 2041. It uses April Landsat 5 TM and Landsat 8 OLI/TIRS Level 2 scenes at 5-year steps. MODIS MOD11A1 gives nighttime LST. A CNN maps seven land cover classes, with an average accuracy of 88%. Daytime LST comes from the thermal band, with emissivity taken from the NDVI vegetation proportion. The InVEST model turns land cover into carbon stock using four carbon pools per class. LST is compared with NDBI, NDVI, NDWI and elevation using regression. Cross-section profiles and directional mapping show how LST and carbon stock vary in space. A CA-ANN model in QGIS MOLUSCE projects LST. Daytime maximum LST rose from 35.26 °C (1996) to 40.8 °C (2021). Mean daytime LST rose from 27.72 to 31.78 °C. The area with no carbon stock grew by 355.78%. By 2041, 22.51% of the area may have LST above 32 °C.
 
+## Selected figures
+
+![Daytime LST zones, 1996 to 2021](figures/fig5_daytime_lst_1996_2021.jpg)
+
+*Fig. 5. Daytime LST zones in Cox's Bazar from 1996 to 2021. From Kafy et al. (2024), Journal of Environmental Management, [https://doi.org/10.1016/j.jenvman.2024.122427](https://doi.org/10.1016/j.jenvman.2024.122427). Shown by the paper's author; see the article for all figures.*
+
+![Carbon stock classes, 1996 to 2021](figures/fig12_carbon_stock_1996_2021.jpg)
+
+*Fig. 12. Carbon stock concentration classes in Cox's Bazar from 1996 to 2021. From Kafy et al. (2024), Journal of Environmental Management, [https://doi.org/10.1016/j.jenvman.2024.122427](https://doi.org/10.1016/j.jenvman.2024.122427). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Daytime maximum LST rose from 35.26 °C (1996) to 40.8 °C (2021). The minimum rose from 20.17 °C to 22.76 °C. (Fig. 5)
@@ -70,6 +80,27 @@ The study covers Cox's Bazar, a coastal area in southeast Bangladesh, from 1996 
 - `tables/table3_carbon_stock_classes_mg_km2.csv`: lower and upper bounds (Mg/km²) of the six carbon stock classes.
 - `tables/table5_lst_prediction_validation.csv`: model validation kappa, % correctness, Kappa histo, Kappa loc and Kappa overall for 2016 and 2021.
 
+## Sample code
+
+The script makes synthetic land cover, NDVI and brightness temperature for 1996 and 2021, then prints the share of area in each daytime LST zone and each carbon stock class (Table 2 pools, Table 3 breaks).
+
+```bash
+python papers/2024-jem-coxsbazar-lst-carbon/sample.py
+```
+
+Key calls:
+
+```python
+emis = thermal.emissivity_from_ndvi(ndvi, ndvi_soil=ndvi.min(), ndvi_veg=ndvi.max(),
+                                    e_soil=0.986, e_veg=0.990, squared=True)
+lst = thermal.lst_from_bt(bt, emis)
+lst[lst > lst.mean() + 3 * lst.std()] = np.nan  # drop hot outliers
+km2 = thermal.range_areas(lst, (24, 26, 28, 30, 32))
+
+density = np.round(carbon.stock_map(lulc, POOLS) / 0.0009)  # Mg/km2
+cs = np.digitize(density, [22360, 23660, 26244, 28672, 48015])
+```
+
 ## Notes
 
 - LST is in °C. Carbon density is in Mg/km² as printed (divide by 100 for Mg/ha). Brightness temperature is converted with −273.15.
@@ -79,4 +110,4 @@ The study covers Cox's Bazar, a coastal area in southeast Bangladesh, from 1996 
 - Some numbers in the paper do not agree with each other. Mean daytime warming is +3.57 °C in the abstract and +4.07 °C in the results. Night LST is −0.05 °C in the abstract and discussion but +0.46 °C in the results. The discussion swaps the high (14.15%) and very high (47.78%) losses. Table 1 lists a 2010 scene, while the text and figures use 2011. The Table 4 NDVI formula is printed as (NIR − R)/(NIR − R), which is a typo for (NIR − R)/(NIR + R). Section 2.6 says three profile lines, but the Fig. 13 maps show four (A-B, C-D, E-F, G-H).
 - The text says the CA-ANN model reached Kappa above 0.80, overall accuracy above 85% and AUC above 0.89. The full metrics are in Table 5.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

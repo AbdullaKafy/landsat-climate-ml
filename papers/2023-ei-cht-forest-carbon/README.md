@@ -6,6 +6,12 @@
 
 The study covers the Chittagong Hill Tracts (CHT) region of Bangladesh, about 15,516 km², across five districts: Chittagong, Cox's Bazar, Bandarban, Rangamati and Khagrachari. It uses six April Landsat scenes from 1996 to 2021 (TM for 1996 to 2011, OLI for 2016 and 2021). Land cover was mapped in Google Earth Engine with a maximum likelihood classifier into five classes. Changes were found with the Land Change Modeler. Carbon storage was mapped with the InVEST carbon model, using four carbon pools per class (above-ground, below-ground, soil, dead organic matter). A multiple linear regression tested elevation, NDVI, EVI and rainfall as drivers. Vegetation fell by 2862.86 km² (21%), and built-up area grew by 466.27 km² (388%). Carbon storage fell from 495.93 × 10⁶ Mg in 1996 to 479.63 × 10⁶ Mg in 2021. Chittagong lost the most carbon (7.99 × 10⁶ Mg).
 
+## Selected figure
+
+![Carbon storage change maps, CHT region](figures/fig8_carbon_storage_change.jpg)
+
+*Fig. 8. Carbon storage loss and gain in the CHT region for each five-year period and for 1996 to 2021. From Kafy et al. (2023), Ecological Indicators, [https://doi.org/10.1016/j.ecolind.2023.110374](https://doi.org/10.1016/j.ecolind.2023.110374). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Kappa was 90.18, 91.85, 92.63, 93.66, 93.57 and 93.32 for 1996 to 2021 (Section 2.4).
@@ -56,6 +62,24 @@ The study covers the Chittagong Hill Tracts (CHT) region of Bangladesh, about 15
 
 Table 2 (class definitions) has no numbers and is not saved. Tables S1 to S3 and Figs. S1 to S4 are in the online supplement, not in the article PDF.
 
+## Sample code
+
+The script builds two synthetic land cover maps, then maps carbon loss and gain and sums them by district.
+
+```bash
+python papers/2023-ei-cht-forest-carbon/sample.py
+```
+
+```python
+from landsat_climate import carbon
+
+pools = carbon.CHT_2023_POOLS  # Table 3, Mg C per ha
+res = carbon.stock_change(lulc_1996, lulc_2021, pools, pixel_area_m2=900.0)
+res["stock_before_mg"], res["stock_after_mg"]   # total stock at both dates
+res["emission_mg"], res["sequestration_mg"]     # carbon loss and gain
+change = res["change_map_mg"]                    # per-pixel map, as in Fig. 8
+```
+
 ## Notes
 
 - Carbon pools are printed in Mg/km². To use Mg/ha, divide by 100 (for example vegetation soil carbon 22,600 Mg/km² = 226 Mg/ha).
@@ -65,4 +89,4 @@ Table 2 (class definitions) has no numbers and is not saved. Tables S1 to S3 and
 - Vegetation loss is 2862.85 km² in the abstract and 2862.86 km² in Section 3.1.
 - Land cover classes: water body, vegetation land, built-up area, crop land, bare land.
 
-This article is open access under CC BY 4.0.
+Only selected figures are shown here. See the paper at the DOI above for the full set. This article is open access under CC BY 4.0.

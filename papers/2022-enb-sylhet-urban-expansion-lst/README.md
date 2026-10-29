@@ -6,6 +6,16 @@
 
 The study area is Sylhet City Corporation (SCC), Bangladesh, 26.57 km². The authors used 12 Landsat scenes (Landsat 4-5 TM and Landsat 8 OLI), one summer and one winter scene every five years from 1995 to 2020. They classified land cover with a supervised classifier. They computed seasonal LST and a surface UHI index in six classes. They studied urban growth by 16 directions around the city core. They correlated LST and UHI with NDBI, NDBSI, NDVI and NDWI. A CA-ANN model (MOLUSCE plugin) predicted built-up land for 2025 and 2030. An ANN on a 500 m grid predicted seasonal LST and UHI. Built-up land grew from 6.44 km² (2000) to 13.99 km² (2020). Built-up area correlates with mean summer UHI at r = 0.982 and with mean winter LST at r = 0.964. In summer, the area above 34 °C is predicted to grow from 2.146 km² (2020) to 11.227 km² (2030).
 
+## Selected figures
+
+![Summer and winter LST maps of Sylhet, 1995 to 2020](figures/fig5_seasonal_lst.png)
+
+*Fig. 5. Summer (a to f) and winter (g to l) LST in Sylhet City Corporation from 1995 to 2020. From Saha et al. (2022), Energy and Buildings, [10.1016/j.enbuild.2022.112452](https://doi.org/10.1016/j.enbuild.2022.112452). Shown by the paper's author; see the article for all figures.*
+
+![Predicted summer and winter LST maps, 2025 and 2030](figures/fig16_predicted_lst.png)
+
+*Fig. 16. Predicted summer (a, b) and winter (c, d) LST for 2025 and 2030. From Saha et al. (2022), Energy and Buildings, [10.1016/j.enbuild.2022.112452](https://doi.org/10.1016/j.enbuild.2022.112452). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Land cover maps: overall accuracy 93.34 % to 95.34 %, kappa 91.03 to 93.73 (Table 2).
@@ -97,6 +107,24 @@ The study area is Sylhet City Corporation (SCC), Bangladesh, 26.57 km². The aut
 - `tables/table10_ann_uhi_validation_kappa.csv`: % correctness and kappa for predicted seasonal UHI.
 - `tables/table11_predicted_uhi_area_km2.csv`: predicted summer and winter UHI class area for 2025 and 2030.
 
+## Sample code
+
+The script grows a small synthetic city, links built-up area to mean seasonal LST, and predicts the area in each LST range for 2025 and 2030. Synthetic data, so the numbers will not match the paper.
+
+```bash
+python papers/2022-enb-sylhet-urban-expansion-lst/sample.py
+```
+
+```python
+built = [lulc.class_areas(lc[y])["Built-up"] for y in lc]
+r = stats.correlation(built, [lst["Summer", y].mean() for y in lc])["r"]
+ca = caann.CAANN(neighborhood=3, seed=0).fit(lc[2015], lc[2020], dem)
+lc[2025] = ca.step(lc[2020], dem, caann.transition_matrix(lc[2015], lc[2020]))
+model, score = lstmodel.fit_lst_model(lc[2020], dem, lst["Summer", 2020], n_splits=3)
+lst["Summer", 2025] = lstmodel.predict_lst(model, lc[2025], dem)
+areas = thermal.range_areas(lst["Summer", 2025], (18, 22, 26, 30, 34))  # km² per range
+```
+
 ## Notes
 
 - LST is in °C. Areas are in km². Every row of Tables 3, 4, 9 and 11 adds up to 26.57 km², the city area.
@@ -109,4 +137,4 @@ The study area is Sylhet City Corporation (SCC), Bangladesh, 26.57 km². The aut
 - Ring spacing for the directional analysis is 200 m in the methods and 100 m in the results text. The methods also mention a 30 km multiple ring buffer.
 - The text says predicted built-up land is 56.62 % and 58.93 % "for 2015 and 2030". Fig. 13 shows the prediction years as 2025 and 2030.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

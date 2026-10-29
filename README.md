@@ -52,11 +52,16 @@ figure and table to the function that makes that kind of output.
 
 Citation counts from Crossref, October 29, 2026. A twelfth study, on green roofs and lidar in Austin, has its own repository: [green-roof-cooling-lidar](https://github.com/AbdullaKafy/green-roof-cooling-lidar).
 
-Each study folder has: a plain summary, key numbers, a **method → code** table, a
-**figure and table map**, and the paper's own result tables as CSV files (for
-example `papers/2021-scs-cumilla-seasonal-utfvi/tables/`). The numbers are copied
-from the published papers and cited to the table they come from. Figures are not
-copied; follow the DOI to see them.
+Each study folder has a plain summary, key numbers, one or two selected figures
+from the paper, a **method → code** table, a **figure and table map**, the paper's
+own result tables as CSV files, and a `sample.py` that runs the method on small
+synthetic data in seconds (`python papers/<study>/sample.py`). Numbers are copied
+from the published papers and cited to the table they come from. Only selected
+figures are shown; the DOI links lead to the full papers.
+
+| Predicted UTFVI, Cumilla 2029 and 2039 | Carbon storage change, Chittagong Hill Tracts | Drought (VHI), Barind Tract |
+|---|---|---|
+| ![](papers/2021-scs-cumilla-seasonal-utfvi/figures/fig14_predicted_utfvi.png) | ![](papers/2023-ei-cht-forest-carbon/figures/fig8_carbon_storage_change.jpg) | ![](papers/2023-stoten-barind-drought/figures/fig12_vhi_drought_maps.jpg) |
 
 ## Toolkit
 

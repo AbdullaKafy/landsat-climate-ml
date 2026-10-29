@@ -6,6 +6,12 @@
 
 The study covers Penang state on the northwest coast of Peninsular Malaysia. It uses Landsat 5 TM images for 2005 and 2010 and Landsat 8 OLI images for 2015 and 2020. An SVM with an RBF kernel maps four classes: agricultural land, built-up area, forest and water body. The paper then measures area change, gains and losses, and transformation rates. Concentric rings and 16 direction rays show where each class grew or shrank. A Cellular Automata (CA) model in the QGIS MOLUSCE plugin, driven by slope, elevation and distance to roads and water, projects land cover for 2025 and 2035. Kappa statistics and a Pearson chi-square test validate the model. From 2005 to 2020, built-up land grew from 468.24 to 1081.53 km², a gain of 15.56% of the study area. Agricultural land lost 8.41%, forest 5.57% and water 1.58%.
 
+## Selected figure
+
+![Predicted land cover for 2025 and 2035 by direction](figures/fig10_predicted_lulc_2025_2035.jpg)
+
+*Fig. 10. Predicted land cover for 2025 (a) and 2035 (b), read along 16 direction rays and 1 km rings. From Rahaman et al. (2022), Earth Systems and Environment, [https://doi.org/10.1007/s41748-022-00318-w](https://doi.org/10.1007/s41748-022-00318-w). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Built-up area grew from 468.24 km² (2005) to 1081.53 km² (2020), a net change of 15.56%. (Table 5)
@@ -62,6 +68,29 @@ The study covers Penang state on the northwest coast of Peninsular Malaysia. It 
 - `tables/table5_lulc_area_km2.csv`: class areas in km² for 2005, 2010, 2015 and 2020, and net change in %.
 - `tables/table6_lulc_transformation_2005_2020.csv`: area converted to and from each class, and the rates (kept as printed text, for example "8.41% (2.80%/yr)").
 
+## Sample code
+
+The script builds synthetic land cover maps for 2010, 2015 and 2020, checks a CA-ANN model on 2020 with kappa and chi-square, predicts 2025 and 2035, and prints the built-up share in 16 direction sectors.
+
+```bash
+python papers/2022-ese-penang-ca-lulc/sample.py
+```
+
+Key calls:
+
+```python
+model = caann.CAANN(neighborhood=5, seed=0).fit(maps[2010], maps[2015], dem)
+m_fit = caann.transition_matrix(maps[2010], maps[2015])
+sim2020 = model.step(maps[2015], dem, m_fit)
+agree, kappa = caann.kappa(maps[2020], sim2020)
+chi = caann.chi_square_validation(maps[2020], sim2020)
+
+m_next = caann.transition_matrix(maps[2015], maps[2020])
+pred = {2025: model.step(maps[2020], dem, m_next)}
+sectors = zones.directional_sectors((n, n), (60, 60), n=16)
+share = zones.share_by_zone(pred[2025], sectors, 2)  # 2 = built-up
+```
+
 ## Notes
 
 - Areas are in km². The net change % in Table 5 is change divided by the total study area (3941 km²), not by the class area. The script check reproduces every value this way.
@@ -73,4 +102,4 @@ The study covers Penang state on the northwest coast of Peninsular Malaysia. It 
 - The kappa values printed in Table 4 (89.01, 88.44, 87.65, 89.33) do not match the printed matrices. The matrices give about 97.27, 96.35, 95.40 and 97.23. The CSV keeps the printed values.
 - The conclusion gives a forest decline rate of 0.34%/year and a water decline rate of 0.53%/year. Table 6 gives 1.86%/year for forest and 0.45%/year (decreasing rate) for water. It also says built-up land will "increase up to % by 2035", with the number missing.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

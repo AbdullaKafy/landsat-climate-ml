@@ -14,3 +14,5 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: ruff check .
       - run: pytest -q
+      - name: Run paper sample scripts
+        run: for f in papers/*/sample.py; do python "$f" > /dev/null; done

@@ -6,6 +6,16 @@
 
 The study covers Kuwait. It uses summer (July) Landsat 5 TM scenes for 1991, 2001 and 2011 and a Landsat 8 OLI/TIRS scene for 2021. A Support Vector Machine (SVM) maps four land cover classes: bare land, built-up area, vegetation and water body. Land surface temperature (LST) comes from the thermal band, with emissivity taken from NDVI. LST then gives a normalized urban heat island (UHI) index and the urban thermal field variance index (UTFVI). A Cellular Automata and Artificial Neural Network (CA-ANN) model projects land cover, LST, UHI and UTFVI to 2031. Built-up area grew by 5024.48 km² (329.60%) from 1991 to 2021. Bare land fell by 3726.54 km² and vegetation by 1055.77 km². The LST range moved from 25.55 to 43.34 °C in 1991 to 29.15 to 48.89 °C in 2021. The area in the strongest UTFVI class grew by 1433.82 km² (108.43%). By 2031 the model expects built-up land to cover 52.03% of the study area and LST to range from 31.02 to 52.60 °C.
 
+## Selected figures
+
+![UTFVI class maps of Kuwait, 1991 to 2021](figures/fig8_utfvi.jpg)
+
+*Fig. 8. UTFVI classes and their area shares in Kuwait in 1991, 2001, 2011 and 2021. From AlDousari et al. (2022), Sustainable Cities and Society, [10.1016/j.scs.2022.104107](https://doi.org/10.1016/j.scs.2022.104107). Shown by the paper's author; see the article for all figures.*
+
+![Predicted UTFVI class map of Kuwait, 2031](figures/fig14_predicted_utfvi.png)
+
+*Fig. 14. Predicted UTFVI classes and their area shares for 2031. From AlDousari et al. (2022), Sustainable Cities and Society, [10.1016/j.scs.2022.104107](https://doi.org/10.1016/j.scs.2022.104107). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Built-up area grew by 5024.48 km² (329.60%) from 1991 to 2021. Bare land fell by 3726.54 km² (28.47%), vegetation by 1055.77 km² (47.12%) and water by 242.16 km² (42.77%). (Table 5)
@@ -75,6 +85,25 @@ The study covers Kuwait. It uses summer (July) Landsat 5 TM scenes for 1991, 200
 - `tables/table8_lst_prediction_validation.csv`: hidden layer value, RMSE and R² for the LST prediction.
 - `tables/table9_utfvi_prediction_validation.csv`: hidden layer value, RMSE and R² for the UTFVI prediction.
 
+## Sample code
+
+The script turns synthetic brightness temperature and NDVI into LST, UHI and UTFVI classes for four years, then predicts the UTFVI classes for 2031. Synthetic data, so the numbers will not match the paper.
+
+```bash
+python papers/2022-scs-kuwait-lulc-utfvi/sample.py
+```
+
+```python
+emis = thermal.emissivity_ndvi_thresholds(ndvi)
+lst[2021] = thermal.lst_from_bt(bt_kelvin, emis, wavelength_um=10.9)
+uhi, u = thermal.uhi(lst[2021]), thermal.utfvi(lst[2021])
+classes = thermal.classify_utfvi(u)
+ca = caann.CAANN(neighborhood=3, seed=0).fit(lc[2011], lc[2021], dem)
+lc[2031] = ca.step(lc[2021], dem, caann.transition_matrix(lc[2011], lc[2021]))
+model, score = lstmodel.fit_lst_model(lc[2021], dem, lst[2021], n_splits=3)
+lst_2031 = lstmodel.predict_lst(model, lc[2031], dem)
+```
+
 ## Notes
 
 - LST is in °C, areas are in km², and kappa in Table 2 is on a 0 to 100 scale.
@@ -86,4 +115,4 @@ The study covers Kuwait. It uses summer (July) Landsat 5 TM scenes for 1991, 200
 - Tables 8 and 9 give "No hidden layer = 6". Fig. 3 shows 6 inputs, one hidden layer with 6 nodes and one output.
 - Some printed values do not match the paper's own data, so check them before reuse. In Table 2, 1991 vegetation user accuracy is 92.31, but 45/50 gives 90.00. In 2001, vegetation producer accuracy is 94.94, but 46/48 gives 95.83. The text gives the Weak UTFVI loss as 3440.73 km², but Table 6 gives 3440.83. The text says WGS 84 / UTM zone 46 N, but the map frames say UTM Zone 39N. The 2011 scene ID has path 165, but Table 1 lists 166/40. The abstract says mean LST rose by 5 °C. The CSVs keep the printed values.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

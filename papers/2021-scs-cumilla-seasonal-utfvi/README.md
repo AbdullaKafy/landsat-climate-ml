@@ -6,6 +6,16 @@
 
 The study area is Cumilla City Corporation (CCC), Bangladesh, about 46 km². The authors used Landsat 4-5 TM and Landsat 8 OLI scenes for 1999, 2009 and 2019, one summer and one winter scene per year. They mapped four land cover classes with SVM. They computed seasonal LST, a normalized UHI and the urban thermal field variance index (UTFVI) with six classes. A CA-ANN model (MOLUSCE plugin) predicted land cover for 2029 and 2039. A three-layer ANN, built in MATLAB on a 500 m grid, predicted seasonal LST and UTFVI. Urban area grew from 20.45 km² (1999) to 26.31 km² (2019). Vegetation fell from 19.69 km² to 12.95 km². The model predicts 31.30 km² of urban area by 2039. In summer 2039, 37.06 % of the city is predicted to be at or above 33 °C.
 
+## Selected figures
+
+![Summer UTFVI maps of Cumilla, 1999 to 2019](figures/fig8_summer_utfvi.png)
+
+*Fig. 8. Summer UTFVI classes in Cumilla City Corporation in 1999, 2009 and 2019. From Kafy et al. (2021), Sustainable Cities and Society, [10.1016/j.scs.2020.102542](https://doi.org/10.1016/j.scs.2020.102542). Shown by the paper's author; see the article for all figures.*
+
+![Predicted summer and winter UTFVI maps, 2029 and 2039](figures/fig14_predicted_utfvi.png)
+
+*Fig. 14. Predicted summer and winter UTFVI classes for 2029 and 2039. From Kafy et al. (2021), Sustainable Cities and Society, [10.1016/j.scs.2020.102542](https://doi.org/10.1016/j.scs.2020.102542). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Urban area rose from 20.45 km² in 1999 to 26.31 km² in 2019; vegetation fell from 19.69 km² to 12.95 km² (Table 2).
@@ -87,6 +97,24 @@ The study area is Cumilla City Corporation (CCC), Bangladesh, about 46 km². The
 - `tables/table12_ann_utfvi_validation_2019.csv`: hidden layers, RMSE and R for UTFVI.
 - `tables/table13_predicted_utfvi_area_km2.csv`: predicted UTFVI area (km²) and change (%) from 2019.
 
+## Sample code
+
+The script builds a small synthetic city, maps seasonal UTFVI classes and predicts them for two future steps with CA-ANN and an LST neural network. Synthetic data, so the numbers will not match the paper.
+
+```bash
+python papers/2021-scs-cumilla-seasonal-utfvi/sample.py
+```
+
+```python
+markov = caann.transition_matrix(lc_2009, lc_2019)
+ca = caann.CAANN(neighborhood=3, seed=0).fit(lc_2009, lc_2019, dem)
+lc_2029 = ca.step(lc_2019, dem, markov)
+lc_2039 = ca.step(lc_2029, dem, markov)
+model, score = lstmodel.fit_lst_model(lc_2019, dem, lst_2019, n_splits=3)
+lst_2039 = lstmodel.predict_lst(model, lc_2039, dem)
+classes_2019 = thermal.classify_utfvi(thermal.utfvi(lst_2019))  # (Ts - Tm) / Ts
+```
+
 ## Notes
 
 - LST is in °C. Areas are in km². Total area is about 45.25 km².
@@ -99,4 +127,4 @@ The study area is Cumilla City Corporation (CCC), Bangladesh, about 46 km². The
 - Table 6 prints one value with three decimals (2.422). We kept it.
 - Classification overall accuracy (text, not a table): 86.04 %, 84.82 % and 87.23 % for 1999, 2009 and 2019.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

@@ -6,6 +6,16 @@
 
 The study area is Sylhet City Corporation (SCC), Bangladesh, about 26.5 km². The authors used 12 Landsat scenes (Landsat 4-5 TM and Landsat 8 OLI), one summer and one winter scene every five years from 1995 to 2020. They mapped four land cover classes with SVM. They computed the seasonal urban thermal field variance index (UTFVI) in six classes. They mapped change by 16 directions around the city center. A CA-ANN model (MOLUSCE plugin) predicted land cover for 2025 and 2030. An ANN in MATLAB, on a 500 m grid, predicted seasonal UTFVI for 2025 and 2030. Built-up land grew from 14.52 % of the city in 1995 to 52.66 % in 2020. It is predicted to reach 58.93 % in 2030. Vegetation fell from 57.62 % to 40.27 %. From 1995 to 2030, the summer strong, stronger and strongest UTFVI areas are predicted to grow by about 20.42, 26.762 and 3.53 km².
 
+## Selected figures
+
+![Summer UTFVI maps of Sylhet, 1995 to 2020](figures/fig8_summer_utfvi.jpg)
+
+*Fig. 8. Summer UTFVI classes in Sylhet City Corporation for 1995, 2000, 2005, 2010, 2015 and 2020. From Kafy et al. (2022), Building and Environment, [10.1016/j.buildenv.2022.109066](https://doi.org/10.1016/j.buildenv.2022.109066). Shown by the paper's author; see the article for all figures.*
+
+![Predicted summer UTFVI maps, 2025 and 2030](figures/fig16_predicted_summer_utfvi.png)
+
+*Fig. 16. Predicted summer UTFVI classes for 2025 and 2030. From Kafy et al. (2022), Building and Environment, [10.1016/j.buildenv.2022.109066](https://doi.org/10.1016/j.buildenv.2022.109066). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Built-up land: 14.52 % (1995), 52.66 % (2020), 56.62 % (2025) and 58.93 % (2030) of the city (Table 8).
@@ -79,6 +89,24 @@ The study area is Sylhet City Corporation (SCC), Bangladesh, about 26.5 km². Th
 
 Table 2 (UTFVI class breaks) is not a CSV. Its values are in `paper.json` under `method_details`.
 
+## Sample code
+
+The script grows a small synthetic city every five years, tracks the share of each summer UTFVI class and predicts the classes for 2025 and 2030. Synthetic data, so the numbers will not match the paper.
+
+```bash
+python papers/2022-be-sylhet-seasonal-utfvi/sample.py
+```
+
+```python
+u = thermal.utfvi(lst[2020], denominator="tmean")  # this paper divides by Tm
+share = {c: 100 * np.mean(thermal.classify_utfvi(u) == c) for c in thermal.UTFVI_CLASSES}
+ca = caann.CAANN(neighborhood=3, seed=0).fit(lc[2015], lc[2020], dem)
+markov = caann.transition_matrix(lc[2015], lc[2020])
+lc_2025 = ca.step(lc[2020], dem, markov)
+model, score = lstmodel.fit_lst_model(lc[2020], dem, lst[2020], n_splits=3)
+lst_2025 = lstmodel.predict_lst(model, lc_2025, dem)
+```
+
 ## Notes
 
 - Land cover results are in % of the city area (Table 8). The city area is about 26.5 km².
@@ -90,4 +118,4 @@ Table 2 (UTFVI class breaks) is not a CSV. Its values are in `paper.json` under 
 - Directional analysis: the methods describe 200 m rings and 16 sectors. The results text says "16 concentrated circles ... at each 5-km random equal interval".
 - The abstract says "2025 and 2035". The methods and tables use 2025 and 2030.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

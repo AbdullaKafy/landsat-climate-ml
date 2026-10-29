@@ -6,6 +6,12 @@
 
 The study looks at Cumilla City Corporation in Bangladesh from 1994 to 2019. It uses six April Landsat scenes (TM for 1994 to 2009, OLI for 2014 and 2019). The images were classified into four classes (water, urban, vegetation, bare land) with a support vector machine (SVM). NDVI was split into six vegetation health classes. LST was found with the single-channel method. Carbon stock was estimated with a tree allometric equation (Biomass Carbon Stock Assessment) and laid over the land cover and LST maps. Results were reported for four zones: residential, commercial, industrial and educational. Urban area grew from 13.11 km² to 26.31 km² and vegetation fell from 18.91 km² to 14.95 km². The share of "very good" vegetation fell from 43.35% to 14.53%. The highest LST rose from 27.61 °C (1994) to 39.28 °C (2019). The paper reports an LST rise of 11.2 °C (1.86 °C/year) since 1994 and a strong positive link between carbon emission and LST.
 
+## Selected figure
+
+![LST maps of Cumilla, 1994 to 2019](figures/fig6_lst_1994_2019.png)
+
+*Fig. 6. Land surface temperature in Cumilla City from 1994 to 2019, with the four city zones. From Kafy et al. (2022), Building and Environment, [https://doi.org/10.1016/j.buildenv.2021.108573](https://doi.org/10.1016/j.buildenv.2021.108573). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Urban area grew from 13.11 km² (1994) to 26.31 km² (2019); vegetation fell from 18.91 km² to 14.95 km² (Table 4).
@@ -64,6 +70,27 @@ The study looks at Cumilla City Corporation in Bangladesh from 1994 to 2019. It 
 - `tables/table5_vegetation_class_pct_by_zone.csv`: % of total area in each NDVI class per zone, plus NDVI max and min.
 - `tables/table6_lst_range_pct_by_zone.csv`: % of total area in each LST range (°C) per zone, plus LST max and min (°C).
 
+## Sample code
+
+The script turns synthetic thermal DN into LST for 1994 and 2019 with the paper's constants, then prints the share of the city in each LST range for four stand-in zones, as in Table 6.
+
+```bash
+python papers/2022-be-cumilla-vegetation-carbon/sample.py
+```
+
+Key calls:
+
+```python
+radiance = lmin + (lmax - lmin) * dn / 255
+bt = thermal.radiance_to_bt(radiance, k1, k2)
+emis = thermal.emissivity_from_ndvi(ndvi, ndvi_soil=ndvi.min(), ndvi_veg=ndvi.max(),
+                                    e_soil=0.986, e_veg=0.990, squared=False)
+lst = thermal.lst_from_bt(bt, emis, wavelength_um=11.5)
+
+zone = zones.directional_sectors((n, n), (45, 50), n=4)
+km2 = thermal.range_areas(lst[zone == z], (21, 25, 29, 33))
+```
+
 ## Notes
 
 - LST is in °C. Areas are in km². Tables 5 and 6 give % of the whole city area, so each year's "Total" row sums to about 100.
@@ -75,4 +102,4 @@ The study looks at Cumilla City Corporation in Bangladesh from 1994 to 2019. It 
 - The conclusion gives an average LST rise of 2.24 °C/year; Section 3.5 gives 1.86 °C/year.
 - Carbon was not mapped from per-class pools. It came from field tree data (DBH and height from the city office), so no carbon-by-class table exists.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

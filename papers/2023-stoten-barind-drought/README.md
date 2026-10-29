@@ -6,6 +6,16 @@
 
 The study covers the Barind Tract (BT) in northwest Bangladesh. This area has 25 upazilas in Rajshahi, Naogaon and Chapai-Nawabganj districts, and its total area is 8371 km². The paper uses Landsat 5 TM and Landsat 8 OLI/TIRS scenes from March and April (pre-monsoon) for 1996, 2001, 2006, 2011, 2016 and 2021. It maps NDVI, MNDWI and LST. It also maps surface water from the Global Surface Water Explorer, rainfall from CHIRPS and soil moisture from GLDAS-NOAH. From NDVI and LST it builds the VCI and TCI, and then combines them into the VHI. Each index is put into five drought classes. A CA-ANN model in the QGIS MOLUSCE plugin then predicts the VHI drought map for 2026 and 2031. The model was checked against the 2016 and 2021 maps with kappa, chi-square and AUC. The model scored 0.938 and 0.960 AUC. Under VHI, extreme drought grew from 184.00 km² in 1996 to 571.18 km² in 2021. The paper predicts that severe and extreme drought will reach 15% and 13% of the area in 2026, and 18% and 24% in 2031.
 
+## Selected figures
+
+![VHI drought maps, Barind Tract, 1996 to 2021](figures/fig12_vhi_drought_maps.jpg)
+
+*Fig. 12. VHI drought classes over the Barind Tract from 1996 to 2021. From Kafy et al. (2023), Science of the Total Environment, [https://doi.org/10.1016/j.scitotenv.2023.161394](https://doi.org/10.1016/j.scitotenv.2023.161394). Shown by the paper's author; see the article for all figures.*
+
+![Predicted VHI drought maps, 2026 and 2031](figures/fig17_predicted_vhi_drought.jpg)
+
+*Fig. 17. Predicted VHI drought classes for 2026 and 2031 from the CA-ANN model. From Kafy et al. (2023), Science of the Total Environment, [https://doi.org/10.1016/j.scitotenv.2023.161394](https://doi.org/10.1016/j.scitotenv.2023.161394). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Maximum LST rose from 31.75 °C in 1996 to 36.49 °C in 2021. Minimum LST rose from 18.66 °C to 20.89 °C (Section 3.2, Fig. 9).
@@ -95,6 +105,24 @@ The study covers the Barind Tract (BT) in northwest Bangladesh. This area has 25
 - `tables/table15_vhi_chi_square_deviation.csv`: estimated vs predicted VHI areas in km² and deviation in %.
 - `tables/table16_caann_validation.csv`: percent correctness, overall kappa, K-no, K-location, K-standard and K-location-strata.
 
+## Sample code
+
+The script makes synthetic NDVI and LST stacks, maps VHI drought classes for six years, and runs one CA-ANN step forward.
+
+```bash
+python papers/2023-stoten-barind-drought/sample.py
+```
+
+```python
+from landsat_climate import caann, drought
+
+vci, tci, vhi = drought.from_stack(ndvi_stack, lst_stack)  # (year, row, col)
+classes = drought.classify_vhi(vhi[-1])                   # Extreme ... No drought
+matrix = caann.transition_matrix(d2016, d2021)            # Markov quantities
+model = caann.CAANN(neighborhood=3, hidden=(8,)).fit(d2016, d2021, dem)
+d2026 = model.step(d2021, dem, matrix, protect_water=False)
+```
+
 ## Notes
 
 - LST is in °C. All areas are in km². Every area table sums to 8371.03 km², give or take 0.02 for rounding.
@@ -109,4 +137,4 @@ The study covers the Barind Tract (BT) in northwest Bangladesh. This area has 25
 - The 2026 and 2031 percentages come from the text and Fig. 17. The paper gives no area table for the predicted years.
 - The ANN settings (neighborhood, iterations, learning rate) are not reported. Fig. 3 shows 8 inputs, one hidden layer with 8 nodes, and one output.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

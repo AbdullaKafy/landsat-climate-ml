@@ -6,6 +6,16 @@
 
 The study covers the whole Kingdom of Saudi Arabia (KSA), an area of 2,149,690 km², from 1987 to 2022. It uses summer Landsat 5 and Landsat 8 surface reflectance images at 5-year steps. All data were processed in Google Earth Engine. Urban areas come from an object-based deep learning classification. The paper describes urban growth with expanding speed and intensity indices and a gravity center. It then maps environmental parameters: EVI, NDBI, MNDWI, NDISI and UTFVI from Landsat, soil moisture from GLDAS-2, and PM2.5, CH4, CO, SO2 and NO2 from NASA GEOS-CF. Nighttime light comes from DMSP-OLS. Each parameter is linked to urban expansion with a simple regression (EP = β0 + β1·UE + ε), and PCA ranks which ones are most affected. Built-up land grew from 0.067% to 0.14% of the country. Mean soil moisture fell from 15.76% to 14.02%. Mean PM2.5 rose from 44.25 to 73.36 μg/m³. PCA gave the highest PC1 loadings to PM2.5 (0.94), UTFVI (0.92) and NO2 (0.88).
 
+## Selected figures
+
+![Urban expansion in Saudi Arabia, 1987 to 2022](figures/fig2_urban_expansion.jpg)
+
+*Fig. 2. Urban expansion across Saudi Arabia from 1987 to 2022, with the urban share of the country for each year. From Almulhim et al. (2024), Journal of Environmental Management, [https://doi.org/10.1016/j.jenvman.2024.120705](https://doi.org/10.1016/j.jenvman.2024.120705). Shown by the paper's author; see the article for all figures.*
+
+![UTFVI thermal comfort maps, 1987 to 2022](figures/fig8_utfvi_thermal_comfort.jpg)
+
+*Fig. 8. Thermal comfort (UTFVI) across Saudi Arabia from 1987 to 2022. From Almulhim et al. (2024), Journal of Environmental Management, [https://doi.org/10.1016/j.jenvman.2024.120705](https://doi.org/10.1016/j.jenvman.2024.120705). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Built-up area was 1440.29 km² in 1987, which is 0.067% of the country (Section 3.1, Fig. 2).
@@ -68,6 +78,24 @@ The study covers the whole Kingdom of Saudi Arabia (KSA), an area of 2,149,690 k
 - `tables/table3_urban_expansion_vs_thermal_air_eps.csv`: urban expansion relationship values for UTFVI, PM2.5, SO2, NO2, CH4, CO and NLP per year.
 - `tables/table4_pca_loadings.csv`: PC1 and PC2 loadings for 10 parameters.
 
+## Sample code
+
+The script grows a synthetic city over eight dates, tracks its area and gravity center, maps UTFVI, then runs the regression and PCA steps.
+
+```bash
+python papers/2024-jem-saudi-urban-analytics/sample.py
+```
+
+```python
+from landsat_climate import lulc, stats, thermal, zones
+
+utf = thermal.utfvi(lst)                          # per-pixel UTFVI
+r, c = zones.gravity_center(urban)                # gravity center of built-up land
+idx = lulc.expansion_indices(area_t1, area_t2, 5, total_km2)  # speed and intensity
+res = stats.correlation(table["urban_km2"], table["PM25"])    # EP = b0 + b1 UE
+loadings, var = stats.pca_loadings(eps_standardized, n_components=2)
+```
+
 ## Notes
 
 - All data were processed in Google Earth Engine. The regression was run in ArcGIS Pro.
@@ -83,4 +111,4 @@ The study covers the whole Kingdom of Saudi Arabia (KSA), an area of 2,149,690 k
 - The abstract gives night light as 0.166 to 9.670. The text and Fig. 14 give 0.1625 to 9670.04.
 - The paper lists no Landsat scenes. No scene table is included.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.

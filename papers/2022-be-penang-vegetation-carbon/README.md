@@ -6,6 +6,16 @@
 
 The study looks at Penang Island, Malaysia, from 1996 to 2021. It uses six Landsat scenes (TM for 1996 to 2011, OLI/TIRS for 2016 and 2021) processed in Google Earth Engine. Land cover was mapped into water, built-up, agriculture and forest with an SVM classifier. LST was found from the thermal band and checked against Malaysian Meteorological Department records. UHI was computed as a normalized LST score. Carbon stock was estimated with a tree allometric equation and checked against World Bank emission data (R² = 0.9472). Forest fell from 47.72% of the land in 1996 to 30.62% in 2021. Average LST rose from 22.67 °C to 30.31 °C (7.63 °C, 0.31 °C/year). Maximum UHI rose from 1.954 to 3.094. Very high carbon stock areas fell from 57% to 33%. Carbon emission was strongly linked to LST (r = 0.826 to 0.931) and UHI (r = 0.852 to 0.90), and negatively to NDVI (r = −0.833 to −0.905).
 
+## Selected figures
+
+![Normalized UHI, 1996 to 2021](figures/fig6_uhi_1996_2021.jpg)
+
+*Fig. 6. Normalized UHI over Penang from 1996 to 2021. From Rahaman et al. (2022), Building and Environment, [https://doi.org/10.1016/j.buildenv.2022.109335](https://doi.org/10.1016/j.buildenv.2022.109335). Shown by the paper's author; see the article for all figures.*
+
+![Carbon stock classes, 1996 to 2021](figures/fig8_carbon_stock_1996_2021.jpg)
+
+*Fig. 8. Carbon stock concentration classes over Penang from 1996 to 2021. From Rahaman et al. (2022), Building and Environment, [https://doi.org/10.1016/j.buildenv.2022.109335](https://doi.org/10.1016/j.buildenv.2022.109335). Shown by the paper's author; see the article for all figures.*
+
 ## Key numbers
 
 - Overall accuracy 93.10% to 95.95%; kappa 90.78 to 94.60 (Table 2).
@@ -70,6 +80,27 @@ The study looks at Penang Island, Malaysia, from 1996 to 2021. It uses six Lands
 - `tables/table5_ce_vs_lst_correlation.csv`: Pearson r, N, t, df, significance per year.
 - `tables/table6_ce_vs_uhi_correlation.csv`: Pearson r, N, t, df, significance per year.
 
+## Sample code
+
+The script makes synthetic LST maps for four years, computes UHI, estimates tree carbon at 46 points with the paper's allometric equation, and prints the correlation of carbon stock with LST and UHI.
+
+```bash
+python papers/2022-be-penang-vegetation-carbon/sample.py
+```
+
+Key calls:
+
+```python
+uhi = thermal.uhi(lst)  # (LST - mean) / SD
+
+agb = 0.0673 * (1.54 * dbh**2 * height) ** 0.976  # kg
+stock = 0.5 * agb  # kg C per point
+
+r_lst = stats.correlation(stock, lst[pts[:, 0], pts[:, 1]])
+r_uhi = stats.correlation(stock, uhi[pts[:, 0], pts[:, 1]])
+print(r_lst["r"], r_uhi["r"], r_lst["n"])
+```
+
 ## Notes
 
 - LST is in °C. UHI is a unitless z-score: UHI = (Ts − Tm) / SD, with Tm and SD the mean and standard deviation of LST.
@@ -81,4 +112,4 @@ The study looks at Penang Island, Malaysia, from 1996 to 2021. It uses six Lands
 - The six NDVI classes (no vegetation to very good) are named but the class breaks are not given.
 - Carbon came from field tree data, not per-class pools, so there is no carbon-by-class table. Correlations use N = 46 points per year.
 
-Figures are not reproduced here. See the paper at the DOI above.
+Only selected figures are shown here. See the paper at the DOI above for the full set.
